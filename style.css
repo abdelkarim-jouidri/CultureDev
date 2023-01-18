@@ -74,3 +74,59 @@ input {
     border-bottom: 1px solid #cecaca;
     padding:  2px 0;
 }
+
+
+/* css for dashboard */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    position: fixed; /* position the sidebar fixed on the page */
+    top: 0; /* position the sidebar at the top of the page */
+    bottom: 0; /* make the sidebar the full height of the page */
+    left: 0; /* position the sidebar on the left of the page */
+    width: 200px; /* set the width of the sidebar */
+}
+.anchors-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 10px;
+    display: block; /* display each link as a block element */
+    padding: 10px; /* add padding to the links */
+}
+.sidebar a:hover{
+    background-color: #ddd;
+    color: #333;
+}
+/* CSS for the main content area */
+.content {
+    margin: 20px 0 20px 220px; /* add a left margin to account for the sidebar */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CSS for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #eee;
+}
