@@ -86,6 +86,7 @@ input {
     bottom: 0; /* make the sidebar the full height of the page */
     left: 0; /* position the sidebar on the left of the page */
     width: 200px; /* set the width of the sidebar */
+    height: 100%;
 }
 .anchors-container{
     height: 100%;
@@ -106,14 +107,16 @@ input {
     background-color: #ddd;
     color: #333;
 }
+
+.sidebar p{
+    text-align: center;
+}
 /* CSS for the main content area */
 .content {
     margin: 20px 0 20px 220px; /* add a left margin to account for the sidebar */
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 /* CSS for the table */
@@ -129,4 +132,9 @@ th, td {
 
 th {
     background-color: #eee;
+}
+
+.logo{
+    border-bottom: 1px solid rgb(122, 120, 120);
+    background-color: #567189;
 }

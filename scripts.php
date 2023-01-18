@@ -51,22 +51,13 @@ class Signup extends Database {
     }
 }
 
-class fetch extends Database{
-    public function get()
-    {$query = $this->db->prepare("SELECT * FROM users");
-        $query->execute();
-        $res = $query->fetchAll();
-        print_r($res);}
 
-}
 
 $dsn = "mysql:host=localhost;dbname=test";
 $user = "root";
 $password = "";
 $login = new Login($dsn, $user, $password);
 $signup = new Signup($dsn, $user, $password);
-$res= new Fetch($dsn, $user, $password);
-$res->get();
 if (isset($_POST['signin'])) {
     $email = $_POST['email'];
     $password = $_POST['pwd'];

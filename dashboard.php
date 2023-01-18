@@ -1,8 +1,7 @@
 <?php
 
     session_start();
-    print_r($_SESSION);
-   echo "<h1>WELCOME TO THE DASHBOARD email :".$_SESSION['email']." </h1>"
+   
 
 
 ?>
@@ -18,12 +17,25 @@
 </head>
 <body>
     <div class="sidebar">
+        <div class="logo">
+            <h1>Culture Dev</h1>
+        </div>
+        <div class="user-session">
+        <p><?="connected with ".$_SESSION['email']?></p>
+        </div>
         <div class="anchors-container">
             <a href="#">Categories</a>
             <a href="#"> Posts</a>
             <a href="#">Statistics</a>
             <a href="#">Logout</a>
         </div>
+        <div class="anchors-container">
+            <a href="#">Categories</a>
+            <a href="#"> Posts</a>
+            <a href="#">Statistics</a>
+            <a href="#">Logout</a>
+        </div>
+        <p>Culture Dev blog post</p>
     </div>
     <div class="content">
         <h1>culture dev Posts</h1>
