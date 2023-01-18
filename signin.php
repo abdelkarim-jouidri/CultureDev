@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="background">
-        <form action="" id="form" method="POST">
+        <form action="scripts.php" id="form" method="POST">
             <h2 class="text-center purple-color border-bottom">Login to your account</h2>
             
             <div class="form-control">
@@ -20,7 +20,7 @@
                 <label>Password</label>
                 <input type="password" name="pwd" placeholder="Please enter your password">
             </div>
-            <input type="submit" value="Sign In" id="submit-btn">
+            <input type="submit" value="Sign In" name="signin" id="submit-btn">
             <p class="text-center info-text">You don't have an account? <a href="signup.php" class="anchor-style">Sign up here</a></p>
         </form>
     </div>
