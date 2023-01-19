@@ -1,0 +1,140 @@
+.background{
+    background-color: aliceblue;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+#form{
+    box-shadow: 0 0 1px 1px;
+    border-radius: 10px;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(32, 31, 31);
+    border-radius: 2px;
+    padding: 10px;
+    justify-content: space-between;
+    position: absolute;
+    transform: translate(50%);
+    top : 25%;
+    background-color: #fff;
+}
+
+#submit-btn{
+    border-radius: 20px;
+    margin-top: 10px;
+    background-color: #567189;
+    padding: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: medium;
+
+}
+
+.text-center{
+    text-align: center;
+}
+
+input {
+    border: 0;
+    height: 30px;
+    border-left: 5px solid #567189;
+    outline: none;
+    padding: 5px 10px;
+    margin-top: 5px;
+}
+
+.form-control{
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+
+}
+
+.purple-color{
+    color: #567189;
+}
+
+.info-text{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.anchor-style{
+    text-decoration: none;
+    color: #567189;
+    font-weight: 600;
+}
+
+.border-bottom{
+    border-bottom: 1px solid #cecaca;
+    padding:  2px 0;
+}
+
+
+/* css for dashboard */
+.sidebar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    position: fixed; /* position the sidebar fixed on the page */
+    top: 0; /* position the sidebar at the top of the page */
+    bottom: 0; /* make the sidebar the full height of the page */
+    left: 0; /* position the sidebar on the left of the page */
+    width: 200px; /* set the width of the sidebar */
+    height: 100%;
+}
+.anchors-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 10px;
+    display: block; /* display each link as a block element */
+    padding: 10px; /* add padding to the links */
+}
+.sidebar a:hover{
+    background-color: #ddd;
+    color: #333;
+}
+
+.sidebar p{
+    text-align: center;
+}
+/* CSS for the main content area */
+.content {
+    margin: 20px 0 20px 220px; /* add a left margin to account for the sidebar */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* CSS for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #eee;
+}
+
+.logo{
+    border-bottom: 1px solid rgb(122, 120, 120);
+    background-color: #567189;
+}
