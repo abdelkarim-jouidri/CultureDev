@@ -29,13 +29,7 @@
             <a href="#">Statistics</a>
             <a href="#">Logout</a>
         </div>
-        <div class="anchors-container">
-            <a href="#">Categories</a>
-            <a href="#"> Posts</a>
-            <a href="#">Statistics</a>
-            <a href="#">Logout</a>
-        </div>
-        <p>Culture Dev blog post</p>
+        
     </div>
     <div class="content">
         <h1>culture dev Posts</h1>
@@ -51,8 +45,9 @@
                 <td>Lorem ipsum dolor sit amet consectetur .</td>
                 <td>01/01/2021</td>
                 <td>
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
+                    <button class="edit-button button"><a href="#">Edit</a></button>
+                    <button class="delete-button button"><a href="#">Delete</a></button>
+                    
                 </td>
             </tr>
             <tr>
@@ -60,8 +55,9 @@
                 <td>Lorem ipsum dolor sit amet consectetur .</td>
                 <td>02/01/2021</td>
                 <td>
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
+                    <button class="edit-button button"><a href="#">Edit</a></button>
+                    <button class="delete-button button"><a href="#">Delete</a></button>
+                    
                 </td>
             </tr>
         </table>

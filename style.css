@@ -76,7 +76,7 @@ input {
 }
 
 
-/* css for dashboard */
+/* ---------------------------------------------------------css for dashboard --------------------------------------------------------- */
 .sidebar {
     background-color: #333;
     color: #fff;
@@ -92,7 +92,6 @@ input {
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
 }
 .sidebar a {
@@ -100,8 +99,8 @@ input {
     text-decoration: none;
     text-align: center;
     margin-right: 10px;
-    display: block; /* display each link as a block element */
-    padding: 10px; /* add padding to the links */
+    display: block; 
+    padding: 10px; 
 }
 .sidebar a:hover{
     background-color: #ddd;
@@ -111,15 +110,15 @@ input {
 .sidebar p{
     text-align: center;
 }
-/* CSS for the main content area */
+
 .content {
-    margin: 20px 0 20px 220px; /* add a left margin to account for the sidebar */
+    margin: 20px 10px 20px 220px; 
     height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-/* CSS for the table */
 table {
     border-collapse: collapse;
     width: 100%;
@@ -137,4 +136,88 @@ th {
 .logo{
     border-bottom: 1px solid rgb(122, 120, 120);
     background-color: #567189;
+}
+
+.heading-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+.edit-button:hover {
+    background-color: #f5f5f5;
+}
+
+.delete-button:hover {
+    background-color: rgb(220, 28, 15);
+}
+
+
+.edit-button:hover {
+    background-color: rgb(220, 152, 15);
+}
+
+
+button a{
+    color: #333;
+    text-decoration: none;
+}
+
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-container{
+    display: flex;
+    justify-content: center;
+}
+
+.card-create{
+    border: 2px solid #333;
+    width: 90%;
+    border-radius: 10px;
+
+}
+
+.card-heading{
+    background-color: #567189;
+
+}
+.card-heading h2{
+    margin: 0;
+}
+
+.rounded-top {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 5px;
+}
+
+.center-text{
+    text-align: center;
+}
+
+.center-text i:hover{
+    color: rgb(224, 8, 8);
+    cursor: pointer;
+    transform: scale(2);
+}
+
+.center-text a{
+    text-decoration: none;
+    color: #333;
 }

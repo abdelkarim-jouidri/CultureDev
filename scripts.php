@@ -58,6 +58,7 @@ $user = "root";
 $password = "";
 $login = new Login($dsn, $user, $password);
 $signup = new Signup($dsn, $user, $password);
+$category = new Category($dsn,$user,$password);
 if (isset($_POST['signin'])) {
     $email = $_POST['email'];
     $password = $_POST['pwd'];
@@ -106,9 +107,25 @@ class Category extends Database {
         return $stmt->rowCount();
     }
 
+
     public function delete($id) {
         $stmt = $this->db->prepare("DELETE FROM categories WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->rowCount();
     }
 }
+
+if (isset($_POST['add_category'])) {
+    $category_name = $_POST['category_name'];
+    $description = 'category description';
+    if($category->create($category_name,$description)) header('location:category.php');
+}
+
+
+if(isset($_POST['delete_category'])) {
+    $id=$_POST['category_id_delete'];
+    if($category->delete($id)){
+        header('location:category.php');
+    }
+}
+
