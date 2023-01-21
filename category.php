@@ -56,25 +56,27 @@
         <div class="heading-btn">
             <h1>culture dev Categories</h1>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-cat-btn">
                 Add Category
             </button>
         </div>
-        <table>
+        <table class="table table-hover">
+            <thead>
             <tr>
                 <th class='center-text'>Category name</th>
                 <th class='center-text'>Category description</th>
                 <th class='center-text'>Actions</th>
             </tr>
+            </thead>
             
             <?php
                 foreach($data as $cat) :
                     $id = $cat['id'];
-                    echo "<tr>
+                    echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEdit($id)'>
                     <td  class='center-text'>".$cat['name']."</td>
                     <td class='center-text'>".$cat['description']."</td>
                     <td class='center-text'>
-                    <a  data-bs-toggle='modal' data-bs-target='#updateModal' onclick='fillInput($id)'><i class='fa-solid fa-xmark'></i></a>
+                    <a  data-bs-toggle='modal' data-bs-target='#confirmModal' onclick='fillInput($id)'><i class='fa-solid fa-xmark'></i></a>
                     </td>
                     </tr>"
                     ?>
@@ -102,7 +104,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
                     <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" >Save</button>
-                    <button type="submit" class="btn btn-primary" name="edit_category" data-bs-dismiss="modal" >Edit</button>
+                    <button type="submit" class="btn btn-warning" name="edit_category" data-bs-dismiss="modal" id="edit-category" >Edit</button>
                 </div>
               </form> 
             </div>
@@ -111,7 +113,7 @@
     </div>
 
         <!-- DELETE POPUP -->
-        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -134,7 +136,18 @@
     <script>
         function fillInput(id){
             document.getElementById('category-id-delete').value = id
+        }
+        
+        function toggleEdit(){
+            if(document.getElementById('edit-category').classList.contains('d-none')){
+                console.log(document.getElementById('edit-category').classList.remove('d-none'))
+            }
             
+            document.getElementById('edit-category').classList.remove('d-none')
+        }
+
+        document.getElementById('add-cat-btn').onclick = ()=>{
+            document.getElementById('edit-category').classList.add('d-none')
         }
     </script>
 </body>
