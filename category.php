@@ -95,10 +95,22 @@
               </div>
               <form action='scripts.php' method="POST" id="form-category">
                 <div class="modal-body">
-                                <input type="hidden" id="category-id" name="category_id">
-                                <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input type="text" class="form-control"  id="category-name" name="category_name" value="" />
+                                <div class="category-inputs">
+                                    <input type="hidden" id="category-id" name="category_id">
+                                    <div class="category-input mb-2">
+                                        <div class="mb-3">
+                                            <label class="form-label">Category Name</label>
+                                            <input type="text" class="form-control"  id="category-name" name="category_name[]" value="" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Category Description</label>
+                                            <input type="text" class="form-control"  id="category-name" name="category_description[]" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="multiple-items-category d-flex align-items-center gap-1">
+                                    <input type="number" class="border w-75 h-100 m-0" placeholder="number of category inputs to be added"> 
+                                    <button type="button" class="btn btn-light border" id="multiple-category-btn">add inputs</button>
                                 </div>
                 </div>
                 <div class="modal-footer">
@@ -134,6 +146,23 @@
             </div>
         </div>
     <script>
+
+    const multipleCategoryBtn = document.getElementById('multiple-category-btn')
+    const categoryInputContainer = document.querySelector('.category-inputs')
+    const categoryInput = document.querySelector('.category-input')
+    multipleCategoryBtn.onclick = (e)=>{
+        const number = e.target.previousElementSibling.value
+        cloneObject(number, categoryInput, categoryInputContainer )
+    }
+
+    function cloneObject(number , original , container){
+        for(let i=1 ; i<=number ; i++){
+            const clone = original.cloneNode(true);
+            const input = clone.children[0].children[1];
+            // input.name = `category_name_${i}`
+            container.appendChild(clone)
+        }
+    }
         function fillInput(id){
             document.getElementById('category-id-delete').value = id
         }

@@ -38,7 +38,7 @@
     text-align: center;
 }
 
-input {
+.form-control > input {
     border: 0;
     height: 30px;
     border-left: 5px solid #567189;
@@ -54,6 +54,10 @@ input {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
 
+}
+
+.category-input{
+    border-bottom: 1px solid #33333330;
 }
 
 .purple-color{

@@ -116,9 +116,27 @@ class Category extends Database {
 }
 
 if (isset($_POST['add_category'])) {
-    $category_name = $_POST['category_name'];
-    $description = 'category description';
-    if($category->create($category_name,$description)) header('location:category.php');
+    // print_r($_POST);
+    // $data = array_diff_key($_POST,array('add_category'=>'','category_id'=>''));
+    // print_r($data);
+    // print_r($_POST);
+    // foreach($data as $item){
+    //     $category_name = $item;
+    // $description = 'category description';
+    // if($category->create($category_name,$description)) header('location:category.php');
+  
+    // }
+
+    $size = count($_POST['category_description']);
+    // print_r($_POST);
+    for($i=0 ; $i<$size ; $i++){
+            if($category->create($_POST['category_name'][$i],$_POST['category_description'][$i])) echo "success";
+
+    }
+
+    header('location:category.php');
+    
+        
 }
 
 
