@@ -72,7 +72,7 @@
             <?php
                 foreach($data as $cat) :
                     $id = $cat['id'];
-                    echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEdit($id)'>
+                    echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEditBtn($id,this)'>
                     <td  class='center-text'>".$cat['name']."</td>
                     <td class='center-text'>".$cat['description']."</td>
                     <td class='center-text'>
@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Category Description</label>
-                                            <input type="text" class="form-control"  id="category-name" name="category_description[]" value="" />
+                                            <input type="text" class="form-control"  id="category-description" name="category_description[]" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -167,16 +167,27 @@
             document.getElementById('category-id-delete').value = id
         }
         
-        function toggleEdit(){
+        function toggleEditBtn(id,element){
             if(document.getElementById('edit-category').classList.contains('d-none')){
-                console.log(document.getElementById('edit-category').classList.remove('d-none'))
+                document.getElementById('edit-category').classList.remove('d-none')
+            }
+            if(!document.querySelector('.multiple-items-category').classList.contains('d-none')){
+            document.querySelector('.multiple-items-category').classList.add('d-none')
             }
             
-            document.getElementById('edit-category').classList.remove('d-none')
+            console.log(id , element.children[0].textContent)
+            document.getElementById('category-name').value = element.children[0].textContent;
+            document.getElementById('category-description').value = element.children[1].textContent;
+            document.getElementById('category-id').value = id
         }
 
         document.getElementById('add-cat-btn').onclick = ()=>{
-            document.getElementById('edit-category').classList.add('d-none')
+            if(!document.getElementById('edit-category').classList.contains('d-none')){
+                document.getElementById('edit-category').classList.add('d-none')
+            }
+            if(document.querySelector('.multiple-items-category').classList.contains('d-none')){
+            document.querySelector('.multiple-items-category').classList.remove('d-none')
+            }
         }
     </script>
 </body>

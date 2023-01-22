@@ -147,3 +147,12 @@ if(isset($_POST['delete_category'])) {
     }
 }
 
+if(isset($_POST['edit_category'])) {
+    $id=$_POST['category_id'];
+    $name = $_POST['category_name'][0];
+    $description = $_POST['category_description'][0];
+    print_r($_POST);
+    if($category->update($id,$name,$description)){
+        header('location:category.php');
+    }
+}
