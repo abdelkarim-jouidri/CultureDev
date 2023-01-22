@@ -115,7 +115,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                    <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" >Save</button>
+                    <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" id="save-category" >Save</button>
                     <button type="submit" class="btn btn-warning" name="edit_category" data-bs-dismiss="modal" id="edit-category" >Edit</button>
                 </div>
               </form> 
@@ -174,6 +174,9 @@
             if(!document.querySelector('.multiple-items-category').classList.contains('d-none')){
             document.querySelector('.multiple-items-category').classList.add('d-none')
             }
+            if(!document.querySelector('#save-category').classList.contains('d-none')){
+                document.querySelector('#save-category').classList.add('d-none')
+            }
             
             console.log(id , element.children[0].textContent)
             document.getElementById('category-name').value = element.children[0].textContent;
@@ -187,6 +190,9 @@
             }
             if(document.querySelector('.multiple-items-category').classList.contains('d-none')){
             document.querySelector('.multiple-items-category').classList.remove('d-none')
+            }
+            if(document.querySelector('#save-category').classList.contains('d-none')){
+                document.querySelector('#save-category').classList.remove('d-none')
             }
         }
     </script>
