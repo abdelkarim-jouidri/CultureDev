@@ -27,9 +27,7 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">
-            <h1>Culture Dev</h1>
-        </div>
+        
         <div class="user-session">
             <p><?php 
             if(isset($_SESSION['email'])) echo "connected with ".$_SESSION['email']
@@ -44,21 +42,11 @@
         
     </div>
     <div class="content">
-        <!-- <div class="card-container">
-            <div class="card-create">
-                <div class="card-heading rounded-top">
-                    <h2>Add Categories</h2>
-                </div>
-                <div class="card-inputs">
-                    <label for="">my input</label>
-                    <input type="text">
-                </div>
-            </div>
-        </div> -->
+        <div id="banner">Culture Dev</div>
         
-        
+        <div class="content-wrapper">
         <div class="heading-btn">
-            <h1>culture dev Categories</h1>
+            <h4>Categories</h4>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-cat-btn">
                 Add Category
@@ -89,6 +77,8 @@
                 ?>
             
         </table>
+        </div>
+
         <!-- Modal category -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -100,11 +90,13 @@
               <form action='scripts.php' method="POST" id="form-category">
                 <div class="modal-body">
                                 <div class="category-inputs">
+                                    <input type="hidden" name="myInput" id="" value="">
                                     <input type="hidden" id="category-id" name="category_id">
                                     <div class="category-input mb-2">
+                                        <h5>Category 1</h5>
                                         <div class="mb-3">
                                             <label class="form-label">Category Name</label>
-                                            <input type="text" class="form-control"  id="category-name" name="category_name[]" value="" />
+                                            <input type="text" class="form-control"  id="category-name" name="category_name" value="" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Category Description</label>
@@ -166,6 +158,8 @@
     function cloneObject(number , original , container){
         for(let i=1 ; i<=number ; i++){
             const clone = original.cloneNode(true);
+            const heading = clone.children[0].textContent = `Category ${i+1}`
+            console.log(heading)
             container.appendChild(clone)
         }
     }
@@ -184,7 +178,6 @@
                 document.querySelector('#save-category').classList.add('d-none')
             }
             
-            console.log(id , element.children[0].textContent)
             document.getElementById('category-name').value = element.children[0].textContent;
             document.getElementById('category-description').value = element.children[1].textContent;
             document.getElementById('category-id').value = id
@@ -202,7 +195,9 @@
             }
         }
 
-        
+        document.getElementById('form-category').onclick=(e)=>{
+            console.log(document.getElementsByName('category_name'))
+        }
 
     </script>
 </body>

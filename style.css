@@ -63,6 +63,24 @@
     border-bottom: 1px solid #33333330;
 }
 
+#banner{
+    padding: 10px;
+    width: 100%;
+    box-shadow: 1px 1px 1px;
+    text-align: center;
+    font-weight: 600;
+    font-size: x-large;
+    background: #000000cc;
+    color: white;
+    top: -2px;
+    position: relative;
+}
+
+.category-input h5{
+    padding: 5px;
+    border-bottom: 1px solid #567189;
+}
+
 .purple-color{
     color: #567189;
 }
@@ -118,12 +136,21 @@
     text-align: center;
 }
 
+.content-wrapper{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
 .content {
-    margin: 20px 10px 20px 220px; 
+    margin: 2px 0px 20px 200px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 50px;
 }
 
 table {

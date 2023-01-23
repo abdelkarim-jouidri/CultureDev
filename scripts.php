@@ -1,5 +1,7 @@
 <?php
 
+use Database as GlobalDatabase;
+
 class Database {
     protected $db;
 
@@ -115,6 +117,14 @@ class Category extends Database {
     }
 }
 
+class Posts extends Database{
+    public function create($name, $description) {
+        $stmt = $this->db->prepare("INSERT INTO posts (name, description) VALUES (?, ?)");
+        $stmt->execute([$name, $description]);
+        return $this->db->lastInsertId();
+    }
+}
+
 if (isset($_POST['add_category'])) {
     // print_r($_POST);
     // $data = array_diff_key($_POST,array('add_category'=>'','category_id'=>''));
@@ -156,3 +166,4 @@ if(isset($_POST['edit_category'])) {
         header('location:category.php');
     }
 }
+
