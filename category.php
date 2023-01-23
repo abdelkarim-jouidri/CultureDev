@@ -2,8 +2,7 @@
 
     include 'scripts.php';
     $category_instance = new Category($dsn,$user,$password);
-    $data = $category_instance->readAll();
-   print_r($_POST)
+    $data = $category_instance->readAll('categories');
 
 
 ?>
@@ -17,6 +16,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
@@ -60,7 +64,7 @@
                 Add Category
             </button>
         </div>
-        <table class="table table-hover">
+        <table class="table table-hover " id="myTable" class="display" style="width:100%">
             <thead>
             <tr>
                 <th class='center-text'>Category name</th>
@@ -85,7 +89,7 @@
                 ?>
             
         </table>
-        <!-- Modal -->
+        <!-- Modal category -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -146,6 +150,10 @@
             </div>
         </div>
     <script>
+         $(document).ready(function() {
+            $('#myTable').DataTable();
+            document.getElementById('myTable_wrapper').classList.add('w-100')
+        });
 
     const multipleCategoryBtn = document.getElementById('multiple-category-btn')
     const categoryInputContainer = document.querySelector('.category-inputs')
@@ -158,8 +166,6 @@
     function cloneObject(number , original , container){
         for(let i=1 ; i<=number ; i++){
             const clone = original.cloneNode(true);
-            const input = clone.children[0].children[1];
-            // input.name = `category_name_${i}`
             container.appendChild(clone)
         }
     }
@@ -195,6 +201,9 @@
                 document.querySelector('#save-category').classList.remove('d-none')
             }
         }
+
+        
+
     </script>
 </body>
 </html>

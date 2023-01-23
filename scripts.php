@@ -95,8 +95,8 @@ class Category extends Database {
         return $this->db->lastInsertId();
     }
 
-    public function readAll() {
-        $stmt = $this->db->prepare("SELECT * FROM categories");
+    public function readAll($table) {
+        $stmt = $this->db->prepare("SELECT * FROM $table");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
