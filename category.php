@@ -96,11 +96,11 @@
                                         <h5>Category 1</h5>
                                         <div class="mb-3">
                                             <label class="form-label ">Category Name</label>
-                                            <input type="text" class="form-control mt-0"   id="category-name" name="category_name" value="" />
+                                            <input type="text" onblur="validateInput(this)" class="form-control mt-0"   id="category-name" name="category_name" value="" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label ">Category Description</label>
-                                            <input type="text" class="form-control mt-0"  id="category-description" name="category_description[]" value="" />
+                                            <input type="text" onblur="validateInput(this)" class="form-control mt-0"  id="category-description" name="category_description[]" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -188,6 +188,24 @@
         }
 
         document.getElementById('add-cat-btn').onclick = ()=>{
+            const formCategory = document.getElementById('form-category')
+            const inputMarkUp = `<input type="hidden" name="myInput" id="" value="">
+            <input type="hidden" id="category-id" name="category_id">
+            <div class="category-input mb-2">
+                <h5>Category 1</h5>
+                <div class="mb-3">
+                    <label class="form-label ">Category Name</label>
+                    <input type="text" onblur="validateInput(this)" class="form-control mt-0"   id="category-name" name="category_name" value="" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label ">Category Description</label>
+                    <input type="text" onblur="validateInput(this)" class="form-control mt-0"  id="category-description" name="category_description[]" value="" />
+                </div>
+            </div>`;
+            
+            categoryInputContainer.innerHTML = inputMarkUp;
+    
+            formCategory.reset()
             if(!document.getElementById('edit-category').classList.contains('d-none')){
                 document.getElementById('edit-category').classList.add('d-none')
             }
@@ -202,6 +220,16 @@
         document.getElementById('form-category').onclick=(e)=>{
             console.log(document.getElementsByName('category_name'))
         }
+
+    function validateInput(input){
+        let errObject = `<p class="mb-0" style="color:red;" id=${input.name}>field cannot be left empty</p>`
+        if(input.value=='') {
+            input.insertAdjacentHTML("afterend", errObject);
+        }
+        else{
+            if(document.getElementById(`${input.name}`)) document.getElementById(`${input.name}`).remove()
+        }
+    }
 
     </script>
 </body>
