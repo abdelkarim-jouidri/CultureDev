@@ -95,16 +95,16 @@
                                     <div class="category-input mb-2">
                                         <h5>Category 1</h5>
                                         <div class="mb-3">
-                                            <label class="form-label">Category Name</label>
-                                            <input type="text" class="form-control"  id="category-name" name="category_name" value="" />
+                                            <label class="form-label ">Category Name</label>
+                                            <input type="text" class="form-control mt-0"   id="category-name" name="category_name" value="" />
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Category Description</label>
-                                            <input type="text" class="form-control"  id="category-description" name="category_description[]" value="" />
+                                            <label class="form-label ">Category Description</label>
+                                            <input type="text" class="form-control mt-0"  id="category-description" name="category_description[]" value="" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="multiple-items-category d-flex align-items-center gap-1">
+                                <div class="multiple-items-category display-flex align-items-center gap-1">
                                     <input type="number" class="border w-75 h-100 m-0" placeholder="number of category inputs to be added"> 
                                     <button type="button" class="btn btn-light border" id="multiple-category-btn">add inputs</button>
                                 </div>
@@ -165,6 +165,9 @@
     }
         function fillInput(id){
             document.getElementById('category-id-delete').value = id
+            if(!document.querySelector('.multiple-items-category').classList.contains('d-none')){
+            document.querySelector('.multiple-items-category').classList.add('d-none')
+            }
         }
         
         function toggleEditBtn(id,element){
@@ -173,6 +176,7 @@
             }
             if(!document.querySelector('.multiple-items-category').classList.contains('d-none')){
             document.querySelector('.multiple-items-category').classList.add('d-none')
+            console.log('true')
             }
             if(!document.querySelector('#save-category').classList.contains('d-none')){
                 document.querySelector('#save-category').classList.add('d-none')
