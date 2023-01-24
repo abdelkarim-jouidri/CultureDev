@@ -1,6 +1,5 @@
 <?php
 
-use Database as GlobalDatabase;
 
 class Database {
     protected $db;
@@ -61,6 +60,7 @@ $password = "";
 $login = new Login($dsn, $user, $password);
 $signup = new Signup($dsn, $user, $password);
 $category = new Category($dsn,$user,$password);
+$post = new Posts($dsn,$user,$password);
 if (isset($_POST['signin'])) {
     $email = $_POST['email'];
     $password = $_POST['pwd'];
@@ -118,12 +118,23 @@ class Category extends Database {
 }
 
 class Posts extends Database{
-    public function create($name, $description) {
-        $stmt = $this->db->prepare("INSERT INTO posts (name, description) VALUES (?, ?)");
-        $stmt->execute([$name, $description]);
+    public function create($title, $description , $category , $image) {
+        $stmt = $this->db->prepare("INSERT INTO posts (title, description, category_id, image) VALUES (?, ? , ? , ?)");
+        $stmt->execute([$title, $description, $category , $image]);
         return $this->db->lastInsertId();
     }
+    public function readAll() {
+        $stmt = $this->db->prepare("SELECT p.id ,p.title, p.description , p.image , c.name 
+                                    FROM posts as p INNER JOIN categories as c 
+                                    ON p.category_id = c.id");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
+
+
+
 
 if (isset($_POST['add_category'])) {
     // print_r($_POST);
@@ -149,7 +160,6 @@ if (isset($_POST['add_category'])) {
         
 }
 
-
 if(isset($_POST['delete_category'])) {
     $id=$_POST['category_id_delete'];
     if($category->delete($id)){
@@ -167,3 +177,20 @@ if(isset($_POST['edit_category'])) {
     }
 }
 
+if (isset($_POST['add_post'])) {
+    $file = $_FILES['post_image'];
+    $size = count($_POST['post_description']);
+
+    for($i=0 ; $i<$size ; $i++){
+        print_r($file['name'][$i]);
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($file["name"][$i]);
+        move_uploaded_file($file["tmp_name"][0], $target_file);
+        $size = count($_POST['post_description']);
+        if($post->create($_POST['post_name'][$i],$_POST['post_description'][$i],$_POST['post_category'][$i],$file["name"][$i])) echo "success";
+        
+    }
+
+    header('location:dashboard.php');
+        
+}

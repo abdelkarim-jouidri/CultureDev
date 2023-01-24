@@ -44,7 +44,7 @@
     <div class="content">
         <div id="banner">Culture Dev</div>
         
-        <div class="content-wrapper">
+    <div class="content-wrapper">
         <div class="heading-btn">
             <h4>Categories</h4>
             <!-- Button trigger modal -->
@@ -78,7 +78,8 @@
             
         </table>
         </div>
-
+        
+    </div>
         <!-- Modal category -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -87,7 +88,7 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action='scripts.php' method="POST" id="form-category">
+              <form action='scripts.php' method="POST" id="form-category" onsubmit="return form(this)">
                 <div class="modal-body">
                                 <div class="category-inputs">
                                     <input type="hidden" name="myInput" id="" value="">
@@ -96,11 +97,11 @@
                                         <h5>Category 1</h5>
                                         <div class="mb-3">
                                             <label class="form-label ">Category Name</label>
-                                            <input type="text" onblur="validateInput(this)" class="form-control mt-0"   id="category-name" name="category_name" value="" />
+                                            <input type="text" class="form-control mt-0 categoryName" onblur="validateInput(this)"   id="category-name" name="category_name[]" value="" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label ">Category Description</label>
-                                            <input type="text" onblur="validateInput(this)" class="form-control mt-0"  id="category-description" name="category_description[]" value="" />
+                                            <input type="text" onblur="validateInput(this)" class=" categoryDescription form-control mt-0"  id="category-description" name="category_description[]" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -111,14 +112,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                    <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" id="save-category" >Save</button>
+                    <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" id="save-category"  >Save</button>
                     <button type="submit" class="btn btn-warning" name="edit_category" data-bs-dismiss="modal" id="edit-category" >Edit</button>
                 </div>
               </form> 
             </div>
           </div>
         </div>
-    </div>
 
         <!-- DELETE POPUP -->
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
@@ -146,7 +146,8 @@
             $('#myTable').DataTable();
             document.getElementById('myTable_wrapper').classList.add('w-100')
         });
-
+        
+    const formCategory = document.getElementById('form-category')
     const multipleCategoryBtn = document.getElementById('multiple-category-btn')
     const categoryInputContainer = document.querySelector('.category-inputs')
     const categoryInput = document.querySelector('.category-input')
@@ -188,14 +189,13 @@
         }
 
         document.getElementById('add-cat-btn').onclick = ()=>{
-            const formCategory = document.getElementById('form-category')
             const inputMarkUp = `<input type="hidden" name="myInput" id="" value="">
             <input type="hidden" id="category-id" name="category_id">
             <div class="category-input mb-2">
                 <h5>Category 1</h5>
                 <div class="mb-3">
                     <label class="form-label ">Category Name</label>
-                    <input type="text" onblur="validateInput(this)" class="form-control mt-0"   id="category-name" name="category_name" value="" />
+                    <input type="text" onblur="validateInput(this)" class="form-control mt-0 myclass"   id="category-name" name="category_name[]" value="" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label ">Category Description</label>
@@ -217,18 +217,59 @@
             }
         }
 
-        document.getElementById('form-category').onclick=(e)=>{
-            console.log(document.getElementsByName('category_name'))
-        }
+       
 
     function validateInput(input){
-        let errObject = `<p class="mb-0" style="color:red;" id=${input.name}>field cannot be left empty</p>`
+        let errObject = `<p class="mb-0" style="color:red;" id=${input.name}>${input.previousElementSibling.textContent} cannot be left empty</p>`
         if(input.value=='') {
+            clearErrorMsg(input)
             input.insertAdjacentHTML("afterend", errObject);
+            input.classList.add('danger-border')
+
         }
         else{
-            if(document.getElementById(`${input.name}`)) document.getElementById(`${input.name}`).remove()
+            clearErrorMsg(input)
         }
+    }
+
+    let clearErrorMsg = (input)=> {
+        if(document.getElementById(`${input.name}`)) {
+                input.classList.remove('danger-border')
+                document.getElementById(`${input.name}`).remove()
+            }
+    }
+
+    function isValid(input){
+        let error = ''
+        let errObject = `<p class="mb-0" style="color:red;" id=${input.name}>${input.previousElementSibling.textContent} cannot be left empty</p>`
+        if(input.value=='') {
+            error+='error'
+            input.insertAdjacentHTML("afterend", errObject);
+            input.classList.add('danger-border')
+        }
+        else{
+            valid = true
+            if(document.getElementById(`${input.name}`)) {
+                input.classList.remove('danger-border')
+                document.getElementById(`${input.name}`).remove()
+            }
+        }
+
+        return error
+    }
+
+    function form(form){
+        console.log('inside form function')
+        res = ''
+        
+        const categoryName = Array.from(document.querySelectorAll('.categoryName'))
+        const categoryDescription = Array.from(document.querySelectorAll('.categoryDescription'))
+        categoryName.forEach(name=>res+=isValid(name))
+        categoryDescription.forEach(description=>res+=isValid(description))
+        if (res=='') {
+            return true
+        }
+        else return false
     }
 
     </script>

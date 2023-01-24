@@ -1,7 +1,15 @@
 <?php
 
     session_start();
-   
+    
+
+    include 'scripts.php';
+    $category_instance = new Category($dsn,$user,$password);
+    $category_data = $category_instance->readAll('categories');
+    $post_data = $post->readAll();
+
+
+
 
 
 ?>
@@ -26,57 +34,62 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo">
-            <h1>Culture Dev</h1>
-        </div>
-        <div class="user-session">
-        <p><?="connected with ".$_SESSION['email']?></p>
+            
+    <div class="user-session">
+            <p><?php 
+            if(isset($_SESSION['email'])) echo "connected with ".$_SESSION['email']
+            ?></p>
         </div>
         <div class="anchors-container">
             <a href="category.php">Categories</a>
-            <a href="#"> Posts</a>
-            <a href="#">Statistics</a>
-            <a href="#">Logout</a>
+            <a href="dashboard.php"> Posts</a>
+            <a href="statistics.php">Statistics</a>
+            <a href="logout.php">Logout</a>
         </div>
         
     </div>
     <div class="content">
-    <div class="heading-btn">
-            <h1>Culture Dev Posts</h1>
+        <div id="banner">Culture Dev</div>
+        <div class="content-wrapper">
+        <div class="heading-btn">
+            <h4>Categories</h4>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-post-btn">
-                Add Post
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-cat-btn">
+                Add Category
             </button>
         </div>
-        <!-- <h1>culture dev Posts</h1> -->
-        <table>
+        <table class="table table-hover " id="myTable" class="display" style="width:100%">
+            <thead>
             <tr>
-                <th>Title</th>
-                <th>description</th>
-                <th>Publish Date</th>
-                <th>Actions</th>
+                <th class='center-text'>Post Title</th>
+                <th class='center-text'>Post Description</th>
+                <th class='center-text'>Post Category</th>
+                <th class='center-text'>Post Image</th>
+                <th class='center-text'>Actions</th>
             </tr>
-            <tr>
-                <td>Post 1</td>
-                <td>Lorem ipsum dolor sit amet consectetur .</td>
-                <td>01/01/2021</td>
-                <td>
-                    <button class="edit-button button"><a href="#">Edit</a></button>
-                    <button class="delete-button button"><a href="#">Delete</a></button>
-                    
-                </td>
-            </tr>
-            <tr>
-                <td>Post 2</td>
-                <td>Lorem ipsum dolor sit amet consectetur .</td>
-                <td>02/01/2021</td>
-                <td>
-                    <button class="edit-button button"><a href="#">Edit</a></button>
-                    <button class="delete-button button"><a href="#">Delete</a></button>
-                    
-                </td>
-            </tr>
+            </thead>
+            
+            <?php
+                foreach($post_data as $post) :
+                    $id = $post['id'];
+                    echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEditBtn($id,this)'>
+                    <td  class='center-text'>".$post['title']."</td>
+                    <td  class='center-text'>".$post['description']."</td>
+                    <td  class='center-text'>".$post['name']."</td>
+                    <td class='center-text'><img class=' img-circle 'src=uploads/".$post['image']."></td>
+                    <td class='center-text'>
+                    <a  data-bs-toggle='modal' data-bs-target='#confirmModal' onclick='fillInput($id)'><i class='fa-solid fa-xmark'></i></a>
+                    </td>
+                    </tr>"
+                    ?>
+               <?php
+                endforeach
+                ?>
+            
         </table>
+        </div>
+        
+    </div>
 
      <!-- Modal posts -->
      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -86,7 +99,7 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action='scripts.php' method="POST" id="form-category">
+              <form action='scripts.php' method="POST" id="form-category" enctype="multipart/form-data">
                 <div class="modal-body">
                                 <div class="post-inputs">
                                     <input type="hidden" id="post-id" name="post_id">
@@ -98,6 +111,23 @@
                                         <div class="mb-3">
                                             <label class="form-label">post Description</label>
                                             <input type="text" class="form-control"  id="post-description" name="post_description[]" value="" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">post category</label>
+                                                <select class="form-control"  id="post-category" name="post_category[]">
+                                                    <?php
+
+                                                    foreach($data as $cat){
+                                                        $cat_id = $cat['id'];
+                                                        $cat_name = $cat['name'];
+                                                        echo "<option value='$cat_id'>$cat_name</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">post image</label>
+                                            <input type="file" class="form-control"  id="post-image" name="post_image[]" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +145,6 @@
             </div>
           </div>
         </div>
-    </div>
 
         <!-- DELETE POPUP -->
         <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
