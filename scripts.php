@@ -1,17 +1,14 @@
 <?php
 
+include 'classes/Database.php';
+include 'classes/Category.class.php';
+include 'classes/Post.class.php';
 
-class Database {
-    protected $db;
-
-    public function __construct($dsn, $user, $password) {
-        try {
-            $this->db = new PDO($dsn, $user, $password);
-        } catch (PDOException $e) {
-            die("Error: " . $e->getMessage());
-        }
-    }
+interface Statistics{
+    public function getStatistics();
 }
+
+
 
 class Login extends Database {
     public function login($email, $password) {
@@ -89,49 +86,9 @@ if (isset($_GET['logout'])) {
     header("Location: login.php");
 }
 
-class Category extends Database {
-    
-    public function create($name, $description) {
-        $stmt = $this->db->prepare("INSERT INTO categories (name, description) VALUES (?, ?)");
-        $stmt->execute([$name, $description]);
-        return $this->db->lastInsertId();
-    }
-
-    public function readAll($table) {
-        $stmt = $this->db->prepare("SELECT * FROM $table");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function update($id, $name, $description) {
-        $stmt = $this->db->prepare("UPDATE categories SET name = ?, description = ? WHERE id = ?");
-        $stmt->execute([$name, $description, $id]);
-        return $stmt->rowCount();
-    }
 
 
-    public function delete($id) {
-        $stmt = $this->db->prepare("DELETE FROM categories WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->rowCount();
-    }
-}
 
-class Posts extends Database{
-    public function create($title, $description , $category , $image) {
-        $stmt = $this->db->prepare("INSERT INTO posts (title, description, category_id, image) VALUES (?, ? , ? , ?)");
-        $stmt->execute([$title, $description, $category , $image]);
-        return $this->db->lastInsertId();
-    }
-    public function readAll() {
-        $stmt = $this->db->prepare("SELECT p.id ,p.title, p.description , p.image , c.name 
-                                    FROM posts as p INNER JOIN categories as c 
-                                    ON p.category_id = c.id");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-}
 
 
 

@@ -1,3 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    
+}
+
+
+  a {
+    text-decoration: none !important;
+  }
+
+body{
+    list-style: none;
+}
+
 .background{
     background-color: aliceblue;
     height: 100vh;
@@ -10,10 +29,34 @@
 }
 
 .img-circle{
-    width: 80px;
-    height: 80px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: 1px solid black
+}
+
+.card-header {
+    height: 30%;
+}
+
+.cards-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card{
+    box-shadow: 1px 1px 1px 2px black;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 40%;
+}
+
+.card p {
+    padding: 10px;
 }
 
 #form{
@@ -70,7 +113,7 @@
     border-bottom: 1px solid #33333330;
 }
 
-#banner{
+#banner2{
     padding: 10px;
     width: 100%;
     box-shadow: 1px 1px 1px;
@@ -82,6 +125,11 @@
     top: -2px;
     position: relative;
 }
+
+#banner1 {
+    display: none;
+}
+
 
 .category-input h5{
     padding: 5px;
@@ -112,12 +160,7 @@
 .sidebar {
     background-color: #333;
     color: #fff;
-    padding: 10px;
-    position: fixed; /* position the sidebar fixed on the page */
-    top: 0; /* position the sidebar at the top of the page */
-    bottom: 0; /* make the sidebar the full height of the page */
-    left: 0; /* position the sidebar on the left of the page */
-    width: 200px; /* set the width of the sidebar */
+    width: 200px; 
     height: 100%;
 }
 .anchors-container{
@@ -130,7 +173,7 @@
     color: #fff;
     text-decoration: none;
     text-align: center;
-    margin-right: 10px;
+    margin: 0;
     display: block; 
     padding: 10px; 
 }
@@ -155,13 +198,20 @@
     align-items: center;
 }
 
+.wrapper {
+    height: 100vh;
+    display: flex;
+}
+
 .content {
-    margin: 2px 0px 20px 200px;
+    /* margin: 2px 0px 20px 200px; */
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 50px;
+    width: calc(100% - 200px);
+
 }
 
 table {
@@ -226,17 +276,8 @@ button a{
     gap: 10px;
 }
 
-.card-container{
-    display: flex;
-    justify-content: center;
-}
 
-.card-create{
-    border: 2px solid #333;
-    width: 90%;
-    border-radius: 10px;
 
-}
 
 .card-heading{
     background-color: #567189;
@@ -271,3 +312,68 @@ tr , td{
     cursor: pointer;
 }
 
+.btn-primary {
+    background-color: #658ebb;
+    border-color: #333;
+}
+
+@media screen and (max-width : 650px){
+    .content {
+        width: 100%;
+    }
+    .wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo1{
+        height: 50px;
+        width: 100%;
+        background-color: black;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #banner2{
+        display: none;
+    }
+
+    .sidebar{
+        display: flex;
+        justify-content: center;
+        height: 100px;
+        width: 100%;
+        margin-bottom: 20px;
+        box-shadow: 0px 2px 4px 1px black;
+        
+    }
+    #banner1{
+        padding: 10px;
+        width: 100%;
+        box-shadow: 1px 1px 1px;
+        text-align: center;
+        font-weight: 600;
+        font-size: x-large;
+        background: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid rgb(110, 110, 110);
+    }
+
+    .anchors-container{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        height: 100%;
+    }
+
+    .anchors-container a {
+        padding: 10px;
+    }
+    
+}

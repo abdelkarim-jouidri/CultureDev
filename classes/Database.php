@@ -1,24 +1,18 @@
 <?php
 
-    class Database {
-        private $host = "localhost";
-        private $db = "test";
-        private $username = "root";
-        private $pwd = "";
+class Database {
+    protected $db;
 
-        protected function createPDO()
-        {
-            try{
-                return new PDO("mysql:host=".self::$host."dbname=".self::$db,self::$username, self::$pwd);
-
-            }catch(PDOException $e){
-
-                echo "ERROR occured $e";
-
-            }
+    public function __construct($dsn, $user, $password) {
+        try {
+            $this->db = new PDO($dsn, $user, $password);
+        } catch (PDOException $e) {
+            die("Error: " . $e->getMessage());
+            
         }
     }
+}
 
 
-
+   
 ?>

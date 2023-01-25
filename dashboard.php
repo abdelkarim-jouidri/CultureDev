@@ -7,6 +7,7 @@
     $category_instance = new Category($dsn,$user,$password);
     $category_data = $category_instance->readAll('categories');
     $post_data = $post->readAll();
+    // die(var_dump($post_data));  
 
 
 
@@ -33,64 +34,72 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="sidebar">
-            
-    <div class="user-session">
-            <p><?php 
-            if(isset($_SESSION['email'])) echo "connected with ".$_SESSION['email']
-            ?></p>
-        </div>
-        <div class="anchors-container">
-            <a href="category.php">Categories</a>
-            <a href="dashboard.php"> Posts</a>
-            <a href="statistics.php">Statistics</a>
-            <a href="logout.php">Logout</a>
-        </div>
-        
-    </div>
-    <div class="content">
-        <div id="banner">Culture Dev</div>
-        <div class="content-wrapper">
-        <div class="heading-btn">
-            <h4>Categories</h4>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-cat-btn">
-                Add Category
-            </button>
-        </div>
-        <table class="table table-hover " id="myTable" class="display" style="width:100%">
-            <thead>
-            <tr>
-                <th class='center-text'>Post Title</th>
-                <th class='center-text'>Post Description</th>
-                <th class='center-text'>Post Category</th>
-                <th class='center-text'>Post Image</th>
-                <th class='center-text'>Actions</th>
-            </tr>
-            </thead>
-            
-            <?php
-                foreach($post_data as $post) :
-                    $id = $post['id'];
-                    echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEditBtn($id,this)'>
-                    <td  class='center-text'>".$post['title']."</td>
-                    <td  class='center-text'>".$post['description']."</td>
-                    <td  class='center-text'>".$post['name']."</td>
-                    <td class='center-text'><img class=' img-circle 'src=uploads/".$post['image']."></td>
-                    <td class='center-text'>
-                    <a  data-bs-toggle='modal' data-bs-target='#confirmModal' onclick='fillInput($id)'><i class='fa-solid fa-xmark'></i></a>
-                    </td>
-                    </tr>"
-                    ?>
-               <?php
-                endforeach
-                ?>
-            
-        </table>
-        </div>
-        
-    </div>
 
+   <!-- new layout -->
+   <div class="wrapper">
+        <div id="banner1">Culture Dev</div>
+
+        <div class="sidebar">
+            
+            <div class="user-session">
+                    <p><?php 
+                    // if(isset($_SESSION['email'])) echo "connected with ".$_SESSION['email']
+                    ?></p>
+                </div>
+                <div class="anchors-container">
+                    <a href="category.php">Categories</a>
+                    <a href="dashboard.php"> Posts</a>
+                    <a href="statistics.php">Statistics</a>
+                    <a href="logout.php">Logout</a>
+                </div>
+            
+        </div>
+        <div class="content">
+            <div id="banner2">Culture Dev</div>
+            
+            <div class="content-wrapper">
+                <div class="heading-btn">
+                    <h4>Categories</h4>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" style="    background-color: #658ebb;
+    border-color: #333;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-cat-btn">
+                        Add Category
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover " id="myTable" class="display" style="width:100%">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th class='center-text'>Post Title</th>
+                            <th class='center-text'>Post Description</th>
+                            <th class='center-text'>Post Category</th>
+                            <th class='center-text'>Post Image</th>
+                            <th class='center-text'>Actions</th>
+                        </tr>
+                        </thead>
+                        
+                        <?php
+                        foreach($post_data as $post) :
+                            $id = $post['id'];
+                            echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEditBtn($id,this)'>
+                            <td  class='center-text'>".$post['title']."</td>
+                            <td  class='center-text'>".$post['description']."</td>
+                            <td  class='center-text'>".$post['name']."</td>
+                            <td class='center-text'><img class=' img-circle 'src=uploads/".$post['image']."></td>
+                            <td class='center-text'>
+                            <a  data-bs-toggle='modal' data-bs-target='#confirmModal' onclick='fillInput($id)'><i class='fa-solid fa-xmark'></i></a>
+                            </td>
+                            </tr>"
+                            ?>
+                    <?php
+                        endforeach
+                        ?>
+                    </table>
+                </div>
+                </div>
+            
+        </div>
+    </div>
      <!-- Modal posts -->
      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -117,7 +126,7 @@
                                                 <select class="form-control"  id="post-category" name="post_category[]">
                                                     <?php
 
-                                                    foreach($data as $cat){
+                                                    foreach($category_data as $cat){
                                                         $cat_id = $cat['id'];
                                                         $cat_name = $cat['name'];
                                                         echo "<option value='$cat_id'>$cat_name</option>";

@@ -3,6 +3,7 @@
     include 'scripts.php';
     $category_instance = new Category($dsn,$user,$password);
     $data = $category_instance->readAll('categories');
+    // var_dump($post->getStatistics());
 
 
 ?>
@@ -47,106 +48,28 @@
         <div class="content">
             <div id="banner2">Culture Dev</div>
             
-            <div class="content-wrapper">
-                <div class="heading-btn">
-                    <h4>Categories</h4>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary text-wrap" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="add-cat-btn">
-                        Add Category
-                    </button>
+            <h3>Statistics</h3>
+            <div class="cards-wrapper">
+                <div class="card">
+                    <div class="card-header"><h5>Posts</h5></div>
+                    <p>Number of available posts is : <?php $post_count = $post->getStatistics();
+                                                var_dump($post_count[0])
+                                            ?></p>
                 </div>
-                <div class="table-responsive">
-                <table class="table table-hover " id="myTable" class="display" style="width:100%">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th class='center-text'>Category name</th>
-                        <th class='center-text'>Category description</th>
-                        <th class='center-text'>Actions</th>
-                    </tr>
-                    </thead>
-                    
-                    <?php
-                        foreach($data as $cat) :
-                            $id = $cat['id'];
-                            echo "<tr data-bs-toggle='modal' data-bs-target='#staticBackdrop' onclick='toggleEditBtn($id,this)'>
-                            <td  class='center-text'>".$cat['name']."</td>
-                            <td class='center-text'>".$cat['description']."</td>
-                            <td class='center-text'>
-                            <a  data-bs-toggle='modal' data-bs-target='#confirmModal' onclick='fillInput($id)'><i class='fa-solid fa-xmark'></i></a>
-                            </td>
-                            </tr>"
-                            ?>
-                    <?php
-                        endforeach
-                        ?>
-                    
-                </table>
+                <div class="card">
+                    <div class="card-header"><h5>Title</h5></div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus in ducimus porro consequatur asperiores.</p>
                 </div>
+                <div class="card">
+                    <div class="card-header"><h5>Title</h5></div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus in ducimus porro consequatur asperiores.</p>
                 </div>
+            </div>
+        </div>
             
         </div>
     </div>
-        <!-- Modal category -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form action='scripts.php' method="POST" id="form-category" onsubmit="return form(this)">
-                <div class="modal-body">
-                                <div class="category-inputs">
-                                    <input type="hidden" name="myInput" id="" value="">
-                                    <input type="hidden" id="category-id" name="category_id">
-                                    <div class="category-input mb-2">
-                                        <h5>Category 1</h5>
-                                        <div class="mb-3">
-                                            <label class="form-label ">Category Name</label>
-                                            <input type="text" class="form-control mt-0 categoryName" onblur="validateInput(this)"   id="category-name" name="category_name[]" value="" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label ">Category Description</label>
-                                            <input type="text" onblur="validateInput(this)" class=" categoryDescription form-control mt-0"  id="category-description" name="category_description[]" value="" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="multiple-items-category display-flex align-items-center gap-1">
-                                    <input type="number" class="border w-75 h-100 m-0" placeholder="number of category inputs to be added"> 
-                                    <button type="button" class="btn btn-light border" id="multiple-category-btn">add inputs</button>
-                                </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                    <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" id="save-category"  >Save</button>
-                    <button type="submit" class="btn btn-warning" name="edit_category" data-bs-dismiss="modal" id="edit-category" >Edit</button>
-                </div>
-              </form> 
-            </div>
-          </div>
-        </div>
-
-        <!-- DELETE POPUP -->
-        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="scripts.php" method="POST">
-                        <input type="hidden" id="category-id-delete" name="category_id_delete">
-                        Are you sure you want to delete this category ?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="delete_category" data-bs-dismiss="modal">Yes !</button>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
+     
     <script>
          $(document).ready(function() {
             $('#myTable').DataTable();
