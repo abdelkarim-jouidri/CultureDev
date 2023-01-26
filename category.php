@@ -37,10 +37,9 @@
                 ?></p>
             </div>
             <div class="anchors-container">
-                <a href="category.php">Categories</a>
+                <a href="category.php" style="background-color: #ddd;color: #333;">Categories</a>
                 <a href="dashboard.php"> Posts</a>
                 <a href="statistics.php">Statistics</a>
-                <a href="logout.php">Logout</a>
             </div>
             
         </div>
@@ -91,7 +90,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Categories</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <form action='scripts.php' method="POST" id="form-category" onsubmit="return form(this)">
@@ -100,14 +99,14 @@
                                     <input type="hidden" name="myInput" id="" value="">
                                     <input type="hidden" id="category-id" name="category_id">
                                     <div class="category-input mb-2">
-                                        <h5>Category 1</h5>
+                                        <h5>Category Form</h5>
                                         <div class="mb-3">
                                             <label class="form-label ">Category Name</label>
-                                            <input type="text" class="form-control mt-0 categoryName" onblur="validateInput(this)"   id="category-name" name="category_name[]" value="" />
+                                            <input type="text" name="categoryName[]" class="form-control mt-0 categoryName" onblur="validateInput(this)"   id="category-name"  value="" />
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label ">Category Description</label>
-                                            <input type="text" onblur="validateInput(this)" class=" categoryDescription form-control mt-0"  id="category-description" name="category_description[]" value="" />
+                                            <input type="text" onblur="validateInput(this)" class=" categoryDescription form-control mt-0"  id="category-description" name="categoryDescription[]" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -118,8 +117,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                    <button type="submit" class="btn btn-primary" name="add_category" data-bs-dismiss="modal" id="save-category"  >Save</button>
-                    <button type="submit" class="btn btn-warning" name="edit_category" data-bs-dismiss="modal" id="edit-category" >Edit</button>
+                    <button type="submit" class="btn btn-primary" name="addCategory" data-bs-dismiss id="save-category"  >Save</button>
+                    <button type="submit" class="btn btn-warning" name="editCategory" data-bs-dismiss id="edit-category" >Edit</button>
                 </div>
               </form> 
             </div>
@@ -165,8 +164,6 @@
     function cloneObject(number , original , container){
         for(let i=1 ; i<=number ; i++){
             const clone = original.cloneNode(true);
-            const heading = clone.children[0].textContent = `Category ${i+1}`
-            console.log(heading)
             container.appendChild(clone)
         }
     }
@@ -198,14 +195,14 @@
             const inputMarkUp = `<input type="hidden" name="myInput" id="" value="">
             <input type="hidden" id="category-id" name="category_id">
             <div class="category-input mb-2">
-                <h5>Category 1</h5>
+                <h5>Category Form</h5>
                 <div class="mb-3">
                     <label class="form-label ">Category Name</label>
-                    <input type="text" onblur="validateInput(this)" class="form-control mt-0 myclass"   id="category-name" name="category_name[]" value="" />
+                    <input type="text" name="categoryName[]" onblur="validateInput(this)" class="form-control mt-0 myclass"   id="category-name"  value="" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label ">Category Description</label>
-                    <input type="text" onblur="validateInput(this)" class="form-control mt-0"  id="category-description" name="category_description[]" value="" />
+                    <input type="text" onblur="validateInput(this)" class="form-control mt-0"  id="category-description" name="categoryDescription[]" value="" />
                 </div>
             </div>`;
             
@@ -239,9 +236,10 @@
     }
 
     let clearErrorMsg = (input)=> {
+        console.log(input.nextElementSibling)
         if(document.getElementById(`${input.name}`)) {
                 input.classList.remove('danger-border')
-                document.getElementById(`${input.name}`).remove()
+                if(input.nextElementSibling) input.nextElementSibling.remove()
             }
     }
 
@@ -265,17 +263,27 @@
     }
 
     function form(form){
-        console.log('inside form function')
-        res = ''
+        valid = true;
         
-        const categoryName = Array.from(document.querySelectorAll('.categoryName'))
-        const categoryDescription = Array.from(document.querySelectorAll('.categoryDescription'))
-        categoryName.forEach(name=>res+=isValid(name))
-        categoryDescription.forEach(description=>res+=isValid(description))
-        if (res=='') {
-            return true
+        const categoryNameList = Array.from(document.querySelectorAll("input[name='categoryName[]']"))
+        const categoryDescriptionList = Array.from(document.querySelectorAll("input[name='categoryDescription[]']"))
+        
+        categoryNameList.forEach(name=>{
+            if(name.value==='') valid = false;
+        })
+
+        categoryDescriptionList.forEach(description=>{
+            if(description.value==='') valid = false;
+        })
+        
+        if(valid){
+            form.addCategory.dataset.bsDismiss='modal'
+            form.editCategory.dataset.bsDismiss='modal'
         }
-        else return false
+
+        console.log(valid)
+
+        return valid
     }
 
     </script>

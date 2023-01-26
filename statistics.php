@@ -3,6 +3,8 @@
     include 'scripts.php';
     $category_instance = new Category($dsn,$user,$password);
     $data = $category_instance->readAll('categories');
+    $cat_stats = $category_instance->getStatistics();
+    // print_r($cat_stats);
     // var_dump($post->getStatistics());
 
 
@@ -39,9 +41,8 @@
             </div>
             <div class="anchors-container">
                 <a href="category.php">Categories</a>
-                <a href="dashboard.php"> Posts</a>
+                <a href="dashboard.php" style="background-color: #ddd;color: #333;"> Posts</a>
                 <a href="statistics.php">Statistics</a>
-                <a href="logout.php">Logout</a>
             </div>
             
         </div>
@@ -53,17 +54,18 @@
                 <div class="card">
                     <div class="card-header"><h5>Posts</h5></div>
                     <p>Number of available posts is : <?php $post_count = $post->getStatistics();
-                                                var_dump($post_count[0])
+                                                echo $post_count[0]['count'];
                                             ?></p>
                 </div>
                 <div class="card">
                     <div class="card-header"><h5>Title</h5></div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus in ducimus porro consequatur asperiores.</p>
+                    <p>Number of available posts is : <?= $cat_stats[0]['count']
+                                            ?></p>
                 </div>
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header"><h5>Title</h5></div>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus in ducimus porro consequatur asperiores.</p>
-                </div>
+                </div> -->
             </div>
         </div>
             

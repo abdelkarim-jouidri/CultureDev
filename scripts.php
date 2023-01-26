@@ -4,10 +4,6 @@ include 'classes/Database.php';
 include 'classes/Category.class.php';
 include 'classes/Post.class.php';
 
-interface Statistics{
-    public function getStatistics();
-}
-
 
 
 class Login extends Database {
@@ -65,7 +61,9 @@ if (isset($_POST['signin'])) {
     if ($login->login($email, $password)) {
         header("Location: dashboard.php");
     } else {
-        echo "Incorrect username or password";
+
+        header("Location: signin.php");
+
     }
 }
 
@@ -75,7 +73,7 @@ if (isset($_POST['signup'])) {
     $email = $_POST['email'];
 echo "enterred if isset";
     if ($signup->signup($username, $password, $email)) {
-        echo "Account created successfully!";
+        header('location:signin.php');
     } else {
         echo "Error creating account";
     }
@@ -93,22 +91,12 @@ if (isset($_GET['logout'])) {
 
 
 
-if (isset($_POST['add_category'])) {
-    // print_r($_POST);
-    // $data = array_diff_key($_POST,array('add_category'=>'','category_id'=>''));
-    // print_r($data);
-    // print_r($_POST);
-    // foreach($data as $item){
-    //     $category_name = $item;
-    // $description = 'category description';
-    // if($category->create($category_name,$description)) header('location:category.php');
-  
-    // }
+if (isset($_POST['addCategory'])) {
+   
 
-    $size = count($_POST['category_description']);
-    // print_r($_POST);
+    $size = count($_POST['categoryDescription']);
     for($i=0 ; $i<$size ; $i++){
-            if($category->create($_POST['category_name'][$i],$_POST['category_description'][$i])) echo "success";
+            if($category->create($_POST['categoryName'][$i],$_POST['categoryDescription'][$i])) echo "success";
 
     }
 
@@ -124,11 +112,10 @@ if(isset($_POST['delete_category'])) {
     }
 }
 
-if(isset($_POST['edit_category'])) {
+if(isset($_POST['editCategory'])) {
     $id=$_POST['category_id'];
-    $name = $_POST['category_name'][0];
-    $description = $_POST['category_description'][0];
-    print_r($_POST);
+    $name = $_POST['categoryName'][0];
+    $description = $_POST['categoryDescription'][0];
     if($category->update($id,$name,$description)){
         header('location:category.php');
     }

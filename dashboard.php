@@ -48,9 +48,8 @@
                 </div>
                 <div class="anchors-container">
                     <a href="category.php">Categories</a>
-                    <a href="dashboard.php"> Posts</a>
+                    <a href="dashboard.php" style="background-color: #ddd;color: #333;"> Posts </a>
                     <a href="statistics.php">Statistics</a>
-                    <a href="logout.php">Logout</a>
                 </div>
             
         </div>

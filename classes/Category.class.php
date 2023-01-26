@@ -25,6 +25,12 @@ class Category extends Database {
         $stmt->execute([$id]);
         return $stmt->rowCount();
     }
+
+    public function getStatistics(){
+        $stmt = $this->db->prepare("SELECT count(*) as count FROM categories");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 
